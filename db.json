@@ -1,0 +1,107 @@
+{
+  "workTypes": [
+    {
+      "id": 1,
+      "title": "All(CMB)"
+    },
+    {
+      "id": 2,
+      "title": "FiOS"
+    },
+    {
+      "id": 3,
+      "title": "HSI"
+    },
+    {
+      "id": 4,
+      "title": "Core"
+    },
+    {
+      "id": 5,
+      "title": "SDA"
+    },
+    {
+      "id": 6,
+      "title": "CXM"
+    },
+    {
+      "id": 7,
+      "title": "CMB-SDA"
+    },
+    {
+      "id": 8,
+      "title": "CMB-CXM"
+    },
+    {
+      "id": 9,
+      "title": "CMB-SDA-CXM"
+    },
+    {
+      "id": 10,
+      "title": "FiOS-SDA"
+    },
+    {
+      "id": 11,
+      "title": "WGODomestic"
+    },
+    {
+      "id": 12,
+      "title": "OneFiberCenter"
+    },
+    {
+      "id": 13,
+      "title": "VendorManagementCenter"
+    },
+    {
+      "id": 14,
+      "title": "OperationsControlCenter"
+    },
+    {
+      "id": 15,
+      "title": "FieldOperations"
+    },
+    {
+      "id": 16,
+      "title": "Provisioning"
+    },
+    {
+      "id": 17,
+      "title": "All Discipline"
+    },
+    {
+      "id": 18,
+      "title": "ALL(CO)"
+    },
+    {
+      "id": 19,
+      "title": "3Wall"
+    },
+    {
+      "id": 20,
+      "title": "DataCenter"
+    },
+    {
+      "id": 21,
+      "title": "Power"
+    },
+    {
+      "id": 22,
+      "title": "VHO"
+    },
+    {
+      "id": 23,
+      "title": "VMN"
+    },
+    {
+      "id": 24,
+      "title": "Voicemail"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "fname": "Jane",
+      "lname": "Doe"
+    }
+  ]
+}
