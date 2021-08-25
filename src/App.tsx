@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPostsRequest } from "./_redux/actions/postsActions/postsActions";
+import { fetchUsersRequest } from "./_redux/actions/usersActions";
+
 import { RootState } from "./_redux/reducers/rootReducer";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { pending, posts, error } = useSelector(
-    (state: RootState) => state.posts
+  const { pending, users, error } = useSelector(
+    (state: RootState) => state.users
   );
 
   useEffect(() => {
-    dispatch(fetchPostsRequest());
+    dispatch(fetchUsersRequest());
   }, []);
 
   return (
@@ -20,11 +21,7 @@ const App = () => {
       ) : error ? (
         <div>Error</div>
       ) : (
-        posts?.map((todo, index) => (
-          <div key={todo.id}>
-            {++index}. {todo.title}
-          </div>
-        ))
+        users?.map((user) => <div key={user.id}>First Name: {user.fname}</div>)
       )}
     </div>
   );
