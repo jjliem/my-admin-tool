@@ -4,8 +4,10 @@ import { IUser } from "../../interfaces/IUser";
 import { fetchUsersFailure, fetchUsersSuccess } from "../actions/usersActions";
 import { userTypes } from "../actiontypes/userTypes";
 
+// Request function
 const getUsers = () => axios.get<IUser[]>("http://localhost:5000/users");
 
+// Handler function
 function* fetchUsersSaga() {
   try {
     const response = yield call(getUsers);

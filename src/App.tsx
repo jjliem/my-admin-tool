@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { UsersPage } from "./components/UsersPage";
 import { fetchUsersRequest } from "./_redux/actions/usersActions";
 
 import { RootState } from "./_redux/reducers/rootReducer";
@@ -15,15 +16,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      {pending ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div>Error</div>
-      ) : (
-        users?.map((user) => <div key={user.id}>First Name: {user.fname}</div>)
-      )}
-    </div>
+    <UsersPage></UsersPage>
   );
 };
 
