@@ -100,13 +100,21 @@
   "users": [
     {
       "id": 1,
-      "fname": "Jane",
-      "lname": "Doe"
+      "fname": "Nyota",
+      "lname": "Uhura",
+      "email": "nyota.uhura@enterprise.com",
+      "vzid": "nyotuh",
+      "workType": "FiOS",
+      "roleType": "Manager"
     },
     {
       "id": 2,
-      "fname": "Judy",
-      "lname": "Liem"
+      "fname": "Hikaru",
+      "lname": "Sulu",
+      "email": "hikaru.sulu@enterprise.com",
+      "vzid": "suluhi",
+      "workType": "CMB",
+      "roleType": "Author"
     }
   ]
 }
