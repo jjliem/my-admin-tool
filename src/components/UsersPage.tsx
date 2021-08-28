@@ -36,49 +36,46 @@ export const UsersPage = () => {
   };
 
   // Handle submit button click
-  const handleClick = (): void => {
-    // If input fields are empty, don't submit form
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // If all input fields are filled
     if (
-      !input.fname ||
-      !input.lname ||
-      !input.email ||
-      !input.vzid ||
-      !input.workType ||
-      !input.roleType
+      input.fname &&
+      input.lname &&
+      input.email &&
+      input.vzid &&
+      input.workType &&
+      input.roleType
     ) {
-      return;
-      // not working?
-      // event.preventDefault();
+      // Then post input to users array in local json server
+      const dataToPost: IUser = {
+        id: users.length + 1,
+        fname: input.fname,
+        lname: input.lname,
+        email: input.email,
+        vzid: input.vzid,
+        workType: input.workType,
+        roleType: input.roleType,
+      };
+      axios
+        .post("http://localhost:5000/users", dataToPost)
+        .then((response) => console.log(response.data));
+
+      // And reset the input fields to empty
+      setInput({
+        id: "",
+        fname: "",
+        lname: "",
+        email: "",
+        vzid: "",
+        workType: "",
+        roleType: "",
+      });
     }
-
-    // Otherwise post input to users array in local json server
-    const dataToPost: IUser = {
-      id: users.length + 1,
-      fname: input.fname,
-      lname: input.lname,
-      email: input.email,
-      vzid: input.vzid,
-      workType: input.workType,
-      roleType: input.roleType,
-    };
-    axios
-      .post("http://localhost:5000/users", dataToPost)
-      .then((response) => console.log(response.data));
-
-    // And reset the input fields to empty
-    setInput({
-      id: "",
-      fname: "",
-      lname: "",
-      email: "",
-      vzid: "",
-      workType: "",
-      roleType: "",
-    });
   };
 
   return (
-    <form className="NewUserForm">
+    <form onSubmit={handleSubmit} className="NewUserForm">
       <h2>Users</h2>
       <h3>Add User</h3>
       <input
@@ -141,9 +138,7 @@ export const UsersPage = () => {
       ></input>
       <br></br>
       <br></br>
-      <button className="AddToList-btn" onClick={handleClick}>
-        Create User
-      </button>
+      <button className="AddToList-btn">Create User</button>
     </form>
   );
 };
