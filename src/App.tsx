@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { UsersList } from "./components/UsersList";
 import { UsersPage } from "./components/UsersPage";
 import { fetchUsersRequest } from "./_redux/actions/usersActions";
 
@@ -16,7 +17,10 @@ const App = () => {
   }, []);
 
   return (
-    <UsersPage></UsersPage>
+    <div>
+      <UsersPage></UsersPage>
+      <UsersList></UsersList>
+    </div>
   );
 };
 

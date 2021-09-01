@@ -1,4 +1,4 @@
-import { IUser } from "../../interfaces/IUser";
+import { IUser } from "./IUser";
 import { userTypes } from "../actiontypes/userTypes";
 
 export interface UsersState {
@@ -7,6 +7,32 @@ export interface UsersState {
   error: string | null;
 }
 
+// CREATE USER INTERFACES -----------------------------------------------------------
+
+export interface CreateUsersSuccessPayload {
+  user: IUser;
+}
+
+export interface CreateUsersFailurePayload {
+  error: string;
+}
+
+export interface CreateUsersRequest {
+  type: typeof userTypes.CREATE_USER_REQUEST;
+  user: IUser;
+}
+
+export type CreateUsersSuccess = {
+  type: typeof userTypes.CREATE_USER_SUCCESS;
+  payload: CreateUsersSuccessPayload;
+};
+
+export type CreateUsersFailure = {
+  type: typeof userTypes.CREATE_USER_FAILURE;
+  payload: CreateUsersFailurePayload;
+};
+
+// FETCH INTERFACES -----------------------------------------------------------
 export interface FetchUsersSuccessPayload {
   users: IUser[];
 }
@@ -32,4 +58,7 @@ export type FetchUsersFailure = {
 export type UsersActions =
   | FetchUsersRequest
   | FetchUsersSuccess
-  | FetchUsersFailure;
+  | FetchUsersFailure
+  | CreateUsersRequest
+  | CreateUsersSuccess
+  | CreateUsersFailure;
