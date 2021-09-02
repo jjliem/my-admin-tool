@@ -115,33 +115,6 @@
       "vzid": "suluhi",
       "workType": "CMB",
       "roleType": "Author"
-    },
-    {
-      "id": 3,
-      "fname": "Jane",
-      "lname": "Doe",
-      "email": "jane.doe@verizon.com",
-      "vzid": "doeja",
-      "workType": "FiOS",
-      "roleType": "Author"
-    },
-    {
-      "id": 4,
-      "fname": "Jane",
-      "lname": "Doe",
-      "email": "jane.doe@verizon.com",
-      "vzid": "doeja",
-      "workType": "FiOS",
-      "roleType": "Author"
-    },
-    {
-      "id": 5,
-      "fname": "Jane",
-      "lname": "Doe",
-      "email": "jane.doe@verizon.com",
-      "vzid": "doeja",
-      "workType": "FiOS",
-      "roleType": "Author"
     }
   ]
 }

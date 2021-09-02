@@ -13,10 +13,10 @@ export const UsersList = () => {
   );
 
   // Dispatch sends an action to be stopped later by saga middleware
-  // useEffect runs once after component did mount
+  // useEffect runs once after component did mount if empty []
   useEffect(() => {
     dispatch(fetchUsersRequest());
-  }, []);
+  }, [dispatch]); //updates every time object in [] updates
 
   return (
     <div>
@@ -24,7 +24,7 @@ export const UsersList = () => {
       {pending ? (
         <div>Loading...</div>
       ) : error ? (
-        <div>Error</div>
+        <div>{error}</div>
       ) : (
         users?.map((user) => (
           <div key={user.id}>

@@ -27,7 +27,7 @@ export default (state = initialState, action: UsersActions) => {
       return {
         ...state,
         pending: false,
-        users: [],
+        // users: [],
         error: action.payload.error,
       };
     case userTypes.CREATE_USER_REQUEST:
@@ -56,7 +56,7 @@ export default (state = initialState, action: UsersActions) => {
       return {
         ...state,
         pending: false,
-        users: [],
+        // users: [],
         error: action.payload.error,
       };
     default:

@@ -21,7 +21,7 @@ import { CreateUsersRequest } from "../types/usersTypes";
 const getUsers = () => axios.get<IUser[]>("http://localhost:5000/users");
 const postUsers = (dataToPost: IUser) => {
   return axios
-    .post("http://localhost:5000/users", dataToPost)
+    .post<IUser>("http://localhost:5000/users", dataToPost)
     .then((res) => res.data);
 };
 
@@ -29,7 +29,7 @@ const postUsers = (dataToPost: IUser) => {
 function* fetchUsersSaga() {
   try {
     const response: AxiosResponse = yield call(getUsers);
-    console.log(response);
+    console.log("getUsers response" + response);
     yield put(
       fetchUsersSuccess({
         users: response.data,
@@ -48,13 +48,15 @@ function* fetchUsersSaga() {
 function* createUsersSaga(action: CreateUsersRequest) {
   const { user } = action; // Sagas accept entire action, need to destructure payload
   try {
-    const response: AxiosResponse = yield call(postUsers, user);
-    console.log(response);
+    const response = yield call(postUsers, user);
+    // To test if TS raises error if response is not of type IUser
+    // let response1 = {...response, dob: "june"};
+    // console.log("JSON STRINGIFY: " + JSON.stringify(response1));
 
     // Put returns an object with instructions for middleware to dispatch the action
     yield put(
       createUsersSuccess({
-        user: response.data,
+        user: response,
       })
     );
   } catch (e) {
