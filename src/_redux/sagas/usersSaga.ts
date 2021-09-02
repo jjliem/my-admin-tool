@@ -21,8 +21,34 @@ import { CreateUsersRequest } from "../types/usersTypes";
 const getUsers = () => axios.get<IUser[]>("http://localhost:5000/users");
 const postUsers = (dataToPost: IUser) => {
   return axios
-    .post<IUser>("http://localhost:5000/users", dataToPost)
+    .post<IUser, AxiosResponse>("http://localhost:5000/users", dataToPost)
     .then((res) => res.data);
+};
+
+interface ServerResponse {
+  data: ServerData;
+}
+
+interface ServerData {
+  id: number;
+  fname: string;
+  lname: string;
+  email: string;
+  vzid: string;
+  workType: string;
+  roleType: string;
+}
+
+const postUsersTest = (dataToPost: IUser) => {
+  axios
+    .post<ServerData>("http://localhost:5000/users", dataToPost, {
+      transformResponse: (r: ServerResponse) => r.data,
+    })
+    .then((response) => {
+      // `response` is of type `AxiosResponse<ServerData>`
+      response.data;
+      // `data` is of type ServerData, correctly inferred
+    });
 };
 
 // Worker function that performs the task
@@ -30,6 +56,9 @@ function* fetchUsersSaga() {
   try {
     const response: AxiosResponse = yield call(getUsers);
     console.log("getUsers response" + response);
+    // To test if TS raises error if response is not of type IUser
+    // let response1 = {...response, dob: "june"};
+    // console.log("JSON STRINGIFY: " + JSON.stringify(response1));
     yield put(
       fetchUsersSuccess({
         users: response.data,
@@ -49,8 +78,9 @@ function* createUsersSaga(action: CreateUsersRequest) {
   const { user } = action; // Sagas accept entire action, need to destructure payload
   try {
     const response = yield call(postUsers, user);
+    console.log("response from test post: " + response);
     // To test if TS raises error if response is not of type IUser
-    // let response1 = {...response, dob: "june"};
+    // let response1 = { ...response, dob: "june" };
     // console.log("JSON STRINGIFY: " + JSON.stringify(response1));
 
     // Put returns an object with instructions for middleware to dispatch the action
