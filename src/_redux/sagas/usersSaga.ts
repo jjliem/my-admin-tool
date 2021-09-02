@@ -25,6 +25,7 @@ const postUsers = (dataToPost: IUser) => {
     .then((res) => res.data);
 };
 
+// START: Testing how to correctly add TS to axios post request
 interface ServerResponse {
   data: ServerData;
 }
@@ -50,6 +51,7 @@ const postUsersTest = (dataToPost: IUser) => {
       // `data` is of type ServerData, correctly inferred
     });
 };
+// END: Testing how to correctly add TS to axios post request
 
 // Worker function that performs the task
 function* fetchUsersSaga() {
