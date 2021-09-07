@@ -22,18 +22,18 @@ export const userReducer: Reducer<IUserState, UserActions> = (
         pending: true,
       };
     case UserActionTypes.FETCH_USER_SUCCESS:
-      console.log("fetch user success action.users: " + action.users);
+      console.log("fetch user success action.users: " + action.payload.users);
       return {
         ...state,
         pending: false,
-        users: action.users,
+        users: action.payload.users,
         error: null,
       };
     case UserActionTypes.FETCH_USER_FAILURE:
       return {
         ...state,
         pending: false,
-        error: action.error,
+        error: action.payload.error,
       };
     case UserActionTypes.CREATE_USER_REQUEST:
       console.log(action.user);

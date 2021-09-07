@@ -23,12 +23,20 @@ export interface IFetchUsersRequest {
   type: typeof UserActionTypes.FETCH_USER_REQUEST;
 }
 
+export interface IFetchUsersSuccessPayload {
+  users: IUser[];
+}
+
+export interface IFetchUsersFailurePayload {
+  error: string;
+}
+
 export type IFetchUsersSuccess = {
   type: typeof UserActionTypes.FETCH_USER_SUCCESS;
-  users: IUser[];
+  payload: IFetchUsersSuccessPayload;
 };
 
 export type IFetchUsersFailure = {
   type: typeof UserActionTypes.FETCH_USER_FAILURE;
-  error: string;
+  payload: IFetchUsersFailurePayload;
 };

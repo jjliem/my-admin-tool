@@ -7,6 +7,8 @@ import {
   ICreateUsersFailure,
   ICreateUsersRequest,
   ICreateUsersSuccess,
+  IFetchUsersSuccessPayload,
+  IFetchUsersFailurePayload,
 } from "../interface/IUserActions.interface";
 
 // Actions are plain objects that represent intention to change the state
@@ -35,15 +37,15 @@ export const fetchUsersRequest = (): IFetchUsersRequest => ({
 });
 
 export const fetchUsersSuccess = (
-  users: IUser[]
+  payload: IFetchUsersSuccessPayload
 ): IFetchUsersSuccess => ({
   type: UserActionTypes.FETCH_USER_SUCCESS,
-  users,
+  payload,
 });
 
 export const fetchUsersFailure = (
-  error: string
+  payload: IFetchUsersFailurePayload
 ): IFetchUsersFailure => ({
   type: UserActionTypes.FETCH_USER_FAILURE,
-  error,
+  payload,
 });

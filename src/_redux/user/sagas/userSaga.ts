@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import {
   all,
   call,
@@ -16,70 +16,48 @@ import {
 } from "../actions/UserActionCreators";
 import { UserActionTypes } from "../actions/UserActionTypes.enum";
 import { ICreateUsersRequest } from "../interface/IUserActions.interface";
+import { isUser } from "../../../typeChecker";
 
 // Request function
 export const getUsers = () => axios.get<IUser[]>("http://localhost:5000/users");
 export const postUsers = (dataToPost: IUser) => {
-  return axios
-    .post<IUser, AxiosResponse>("http://localhost:5000/users", dataToPost)
-    .then((res) => res.data);
+  return axios.post<IUser>("http://localhost:5000/users", dataToPost);
 };
-
-// START: Testing how to correctly add TS to axios post request
-interface ServerResponse {
-  data: ServerData;
+interface ResponseGenerator {
+  config?: any;
+  data?: any;
+  headers?: any;
+  request?: any;
+  status?: number;
+  statusText?: string;
 }
-
-interface ServerData {
-  id: number;
-  fname: string;
-  lname: string;
-  email: string;
-  vzid: string;
-  workType: string;
-  roleType: string;
-}
-
-const postUsersTest = (dataToPost: IUser) => {
-  axios
-    .post<ServerData>("http://localhost:5000/users", dataToPost, {
-      transformResponse: (r: ServerResponse) => r.data,
-    })
-    .then((response) => {
-      // `response` is of type `AxiosResponse<ServerData>`
-      response.data;
-      // `data` is of type ServerData, correctly inferred
-    });
-};
-// END: Testing how to correctly add TS to axios post request
-
 // Worker function that performs the task
-export function* fetchUsersSaga(): any {
+export function* fetchUsersSaga() {
   try {
-    const response = yield call(getUsers);
+    const response: AxiosResponse<IUser[]> = yield call(getUsers);
     console.log("getUsers response: " + response.data);
-    // To test if TS raises error if response is not of type IUser
-    // let response1 = {...response, dob: "june"};
-    // console.log("JSON STRINGIFY: " + JSON.stringify(response1));
-    yield put(fetchUsersSuccess(response.data));
+    const testUser = response.data[0];
+    if (testUser && isUser(testUser)) {
+      yield put(fetchUsersSuccess({ users: response.data }));
+    }
   } catch (e) {
-    yield put(fetchUsersFailure(e));
+    yield put(fetchUsersFailure({ error: e.message }));
   }
 }
 
 // Worker function that performs the task
-export function* createUsersSaga(action: ICreateUsersRequest): any {
+export function* createUsersSaga(action: ICreateUsersRequest) {
   const { user } = action; // Sagas accept entire action, need to destructure payload
   try {
-    const response = yield call(postUsers, user);
+    const response: AxiosResponse<IUser> = yield call(postUsers, user);
 
-    console.log("postUsers response: " + response);
+    console.log("postUsers response: " + response.data);
     // To test if TS raises error if response is not of type IUser
     // let response1 = { ...response, dob: "june" };
     // console.log("JSON STRINGIFY: " + JSON.stringify(response1));
 
     // Put returns an object with instructions for middleware to dispatch the action
-    yield put(createUsersSuccess(response));
+    yield put(createUsersSuccess(response.data));
   } catch (e) {
     yield put(createUsersFailure(e));
   }

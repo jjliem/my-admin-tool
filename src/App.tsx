@@ -9,7 +9,7 @@ import { RootState } from "./_redux/rootReducer";
 const App = () => {
   const dispatch = useDispatch();
   const { pending, users, error } = useSelector(
-    (state: RootState) => state.userState
+    (state: RootState) => state.users
   );
 
   useEffect(() => {
