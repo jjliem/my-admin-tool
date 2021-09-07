@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsersRequest } from "../_redux/actions/usersActions";
-import { RootState } from "../_redux/reducers/rootReducer";
+import { fetchUsersRequest } from "../_redux/user/actions/UserActionCreators";
+import { RootState } from "../_redux/rootReducer";
 
 export const UsersList = () => {
   // State from store

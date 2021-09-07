@@ -115,6 +115,15 @@
       "vzid": "suluhi",
       "workType": "CMB",
       "roleType": "Author"
+    },
+    {
+      "id": 3,
+      "fname": "Jane",
+      "lname": "Doe",
+      "email": "jane.doe@verizon.com",
+      "vzid": "doeja",
+      "workType": "FiOS",
+      "roleType": "Author"
     }
   ]
 }

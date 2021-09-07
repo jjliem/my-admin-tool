@@ -1,12 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IUser } from "../_redux/types/IUser";
+import { IUser } from "../_redux/user/interface/IUser.interface";
 import {
   fetchUsersRequest,
   createUsersRequest,
-} from "../_redux/actions/usersActions";
-import { RootState } from "../_redux/reducers/rootReducer";
+} from "../_redux/user/actions/UserActionCreators";
+import { RootState } from "../_redux/rootReducer";
 
 export const UsersPage = () => {
   // State from store
