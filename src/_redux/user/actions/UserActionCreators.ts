@@ -1,6 +1,5 @@
 import { UserActionTypes } from "./UserActionTypes.enum";
-import { IUser } from "../interface/IUser.interface";
-import {
+import {IUser,
   IFetchUsersFailure,
   IFetchUsersRequest,
   IFetchUsersSuccess,
@@ -9,7 +8,7 @@ import {
   ICreateUsersSuccess,
   IFetchUsersSuccessPayload,
   IFetchUsersFailurePayload,
-} from "../interface/IUserActions.interface";
+} from "../interface/IUser.interface";
 
 // Actions are plain objects that represent intention to change the state
 
@@ -49,3 +48,11 @@ export const fetchUsersFailure = (
   type: UserActionTypes.FETCH_USER_FAILURE,
   payload,
 });
+
+export type UserActions =
+  | IFetchUsersRequest
+  | IFetchUsersSuccess
+  | IFetchUsersFailure
+  | ICreateUsersRequest
+  | ICreateUsersSuccess
+  | ICreateUsersFailure;

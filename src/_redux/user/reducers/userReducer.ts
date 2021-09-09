@@ -1,8 +1,7 @@
 import { Reducer } from "redux";
-import { UserActions } from "../actions/UserActions.type";
+import { UserActions } from "../actions/UserActionCreators";
 import { UserActionTypes } from "../actions/UserActionTypes.enum";
-import { IUser } from "../interface/IUser.interface";
-import { IUserState } from "../interface/IUserState.interface";
+import { IUser, IUserState } from "../interface/IUser.interface";
 
 const initialState: IUserState = {
   pending: false,

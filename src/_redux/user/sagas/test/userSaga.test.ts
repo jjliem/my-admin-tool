@@ -1,82 +1,63 @@
-import { call, put } from "redux-saga/effects";
-import GetUsersMock from "./GetUsersMock";
-import { createUsersSaga, fetchUsersSaga, getUsers } from "../userSaga";
-import {
-  createUsersRequest,
-  fetchUsersFailure,
-  fetchUsersSuccess,
-} from "../../actions/UserActionCreators";
-import GetUserMock from "./GetUserMock";
+import { takeEvery } from "redux-saga/effects";
+import sinon from "sinon";
+import { createUsersSaga, fetchUsersSaga, userSaga } from "../userSaga";
+import axios from "axios";
 import { UserActionTypes } from "../../actions/UserActionTypes.enum";
-import { ICreateUsersRequest } from "../../interface/IUserActions.interface";
-import { useDispatch } from "react-redux";
-import { IUser } from "../../interface/IUser.interface";
+import { runSaga } from "redux-saga";
+import { fetchUsersSuccess } from "../../actions/UserActionCreators";
 
-// Tests
-describe("getUsers", () => {
-  it("success triggers success action with users", () => {
-    const generator = fetchUsersSaga();
-    const response = { data: GetUsersMock };
+// Testing Watcher Saga
+describe("userSaga watches for actions", () => {
+  const generator = userSaga();
 
-    expect(generator.next().value).toEqual(call(getUsers));
-
-    expect(generator.next(response).value).toEqual(
-      put(fetchUsersSuccess(GetUsersMock))
+  it("should wait for every FETCH_USER_REQUEST action and call fetchUsersSaga", () => {
+    expect(generator.next().value).toEqual(
+      takeEvery(UserActionTypes.FETCH_USER_REQUEST, fetchUsersSaga)
     );
-
-    expect(generator.next()).toEqual({ done: true, value: undefined });
   });
 
-  it("failure triggers failure action", () => {
-    const generator = fetchUsersSaga();
-    const response = {
-      id: 1,
-      bday: "July 23, 1980",
-      fname: "Jane",
-      lname: "Doe",
-      email: "jane.doe@verizon.com",
-      vzid: "doeja",
-      workType: "FiOS",
-      roleType: "Author",
-    };
-    //null resp is still valid? try adding different key?
-    const e = "error";
+  it("should wait for every CREATE_USER_REQUEST action and call createUsersSaga", () => {
+    expect(generator.next().value).toEqual(
+      takeEvery(UserActionTypes.CREATE_USER_REQUEST, createUsersSaga)
+    );
+  });
 
-    expect(generator.next().value).toEqual(call(getUsers));
-
-    expect(generator.next(response).value).toEqual(put(fetchUsersFailure(e)));
-
-    expect(generator.next()).toEqual({ done: true, value: undefined });
+  it("should be done on next iteration", () => {
+    expect(generator.next().done).toBeTruthy();
   });
 });
 
-// describe("postUsers", () => {
-//   it("success triggers success action with users", () => {
-//     const dispatch = useDispatch();
+//Testing fetchUsersSaga
 
-//     const addUser = (user: IUser) => dispatch(createUsersRequest(user));
+// describe("fetchUsersSaga", () => {
+//   it("should call api and dispatch success action", async () => {
+//     const dummyUsers = [
+//       {
+//         id: 1,
+//         fname: "Jane",
+//         lname: "Doe",
+//         email: "jane.doe@verizon.com",
+//         vzid: "doeja",
+//         workType: "FiOS",
+//         roleType: "Author",
+//       },
+//     ];
+//     const mockGetUsers = jest
+//       .spyOn(axios, "get")
+//       .mockImplementation(() => Promise.resolve({ users: dummyUsers }));
 
-//     const generator = createUsersSaga();
-//     const response = { data: GetUsersMock };
+//     const dispatched: any = [];
 
-//     expect(generator.next().value).toEqual(call(getUsers));
-
-//     expect(generator.next(response).value).toEqual(
-//       put(fetchUsersSuccess(GetUsersMock))
+//     const result = await runSaga(
+//       {
+//         dispatch: (action) => dispatched.push(action),
+//       },
+//       fetchUsersSaga
 //     );
-
-//     expect(generator.next()).toEqual({ done: true, value: undefined });
-//   });
-
-//   it("failure triggers failure action", () => {
-//     const generator = fetchUsersSaga();
-//     const response = {};
-//     const e = "error";
-
-//     expect(generator.next().value).toEqual(call(getUsers));
-
-//     expect(generator.next(response).value).toEqual(put(fetchUsersFailure(e)));
-
-//     expect(generator.next()).toEqual({ done: true, value: undefined });
+//     console.log(dummyUsers);
+//     expect(mockGetUsers).toHaveBeenCalledTimes(1);
+//     expect(dispatched).toEqual([fetchUsersSuccess({ users: dummyUsers })]);
+//     mockGetUsers.mockClear();
 //   });
 // });
+
