@@ -1,6 +1,10 @@
-import { takeEvery } from "redux-saga/effects";
-import { createUserSaga, fetchUserSaga, userSaga } from "./userSaga";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { createUserSaga, fetchUserSaga, getUser, userSaga } from "./userSaga";
 import { UserActionTypes } from "../actions/UserActionTypes.enum";
+import {
+  fetchUserFailure,
+  fetchUserSuccess,
+} from "../actions/UserActionCreators";
 
 // Testing Watcher Saga
 describe("userSaga watches for actions", () => {
@@ -23,4 +27,38 @@ describe("userSaga watches for actions", () => {
   });
 });
 
-//Testing fetchUsersSaga
+// Testing fetchUserSaga
+describe("fetchUserSaga", () => {
+  it("success triggers success action with users", () => {
+    const generator = fetchUserSaga();
+    const response = [
+      {
+        id: 1,
+        fname: "Jane",
+        lname: "Doe",
+        email: "jane.doe@verizon.com",
+        vzid: "doeja",
+        workType: "FiOS",
+        roleType: "Author",
+      },
+    ];
+
+    expect(generator.next().value).toEqual(call(getUser));
+
+    expect(generator.next(response).value).toEqual(
+      put(fetchUserSuccess(response))
+    );
+
+    expect(generator.next()).toEqual({ done: true, value: undefined });
+  });
+
+  it("failure triggers failure action", async () => {
+    const generator = fetchUserSaga();
+    expect(generator.next().value).toEqual(call(getUser));
+    expect(generator.throw("error").value).toEqual(
+      put(fetchUserFailure("error"))
+    );
+
+    expect(generator.next()).toEqual({ done: true, value: undefined });
+  });
+});
