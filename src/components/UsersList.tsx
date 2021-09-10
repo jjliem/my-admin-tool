@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserRequest } from "../_redux/user/actions/UserActionCreators";
+import { getUserRequest } from "../_redux/user/actions/UserActionCreators";
 import { RootState } from "../_redux/rootReducer";
 
 export const UsersList = () => {
@@ -15,7 +15,7 @@ export const UsersList = () => {
   // Dispatch sends an action to be stopped later by saga middleware
   // useEffect runs once after component did mount if empty []
   useEffect(() => {
-    dispatch(fetchUserRequest());
+    dispatch(getUserRequest());
   }, [dispatch]); //updates every time object in [] updates
 
   return (

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UsersList } from "./components/UsersList";
 import { UsersPage } from "./components/UsersPage";
-import { fetchUserRequest } from "./_redux/user/actions/UserActionCreators";
+import { getUserRequest } from "./_redux/user/actions/UserActionCreators";
 
 import { RootState } from "./_redux/rootReducer";
 
@@ -13,7 +13,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchUserRequest());
+    dispatch(getUserRequest());
   }, []);
 
   return (

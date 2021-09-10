@@ -1,53 +1,53 @@
 import { UserActionTypes } from "./UserActionTypes.enum";
 import {
   IUser,
-  IFetchUserFailure,
-  IFetchUserRequest,
-  IFetchUserSuccess,
-  ICreateUserFailure,
-  ICreateUserRequest,
-  ICreateUserSuccess,
+  IGetUserFailure,
+  IGetUserRequest,
+  IGetUserSuccess,
+  IPostUserFailure,
+  IPostUserRequest,
+  IPostUserSuccess,
 } from "../models/IUser.interface";
 
 // Actions are plain objects that represent intention to change the state
 
-// FETCH USER ACTIONS --------------------------------------------------------
+// GET USER ACTIONS --------------------------------------------------------
 
-export const fetchUserRequest = (): IFetchUserRequest => ({
-  type: UserActionTypes.FETCH_USER_REQUEST,
+export const getUserRequest = (): IGetUserRequest => ({
+  type: UserActionTypes.GET_USER_REQUEST,
 });
 
-export const fetchUserSuccess = (users: IUser[]): IFetchUserSuccess => ({
-  type: UserActionTypes.FETCH_USER_SUCCESS,
+export const getUserSuccess = (users: IUser[]): IGetUserSuccess => ({
+  type: UserActionTypes.GET_USER_SUCCESS,
   users,
 });
 
-export const fetchUserFailure = (error: string): IFetchUserFailure => ({
-  type: UserActionTypes.FETCH_USER_FAILURE,
+export const getUserFailure = (error: string): IGetUserFailure => ({
+  type: UserActionTypes.GET_USER_FAILURE,
   error,
 });
 
-// CREATE USER ACTIONS --------------------------------------------------------
+// POST USER ACTIONS --------------------------------------------------------
 
-export const createUserRequest = (user: IUser): ICreateUserRequest => ({
-  type: UserActionTypes.CREATE_USER_REQUEST,
+export const postUserRequest = (user: IUser): IPostUserRequest => ({
+  type: UserActionTypes.POST_USER_REQUEST,
   user,
 });
 
-export const createUserSuccess = (user: IUser): ICreateUserSuccess => ({
-  type: UserActionTypes.CREATE_USER_SUCCESS,
+export const postUserSuccess = (user: IUser): IPostUserSuccess => ({
+  type: UserActionTypes.POST_USER_SUCCESS,
   user,
 });
 
-export const createUserFailure = (error: string): ICreateUserFailure => ({
-  type: UserActionTypes.CREATE_USER_FAILURE,
+export const postUserFailure = (error: string): IPostUserFailure => ({
+  type: UserActionTypes.POST_USER_FAILURE,
   error,
 });
 
 export type UserActions =
-  | IFetchUserRequest
-  | IFetchUserSuccess
-  | IFetchUserFailure
-  | ICreateUserRequest
-  | ICreateUserSuccess
-  | ICreateUserFailure;
+  | IGetUserRequest
+  | IGetUserSuccess
+  | IGetUserFailure
+  | IPostUserRequest
+  | IPostUserSuccess
+  | IPostUserFailure;

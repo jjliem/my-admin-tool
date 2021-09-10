@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IUser } from "../_redux/user/models/IUser.interface";
 import {
-  fetchUserRequest,
-  createUserRequest,
+  postUserRequest,
 } from "../_redux/user/actions/UserActionCreators";
 import { RootState } from "../_redux/rootReducer";
 
@@ -18,7 +17,7 @@ export const UsersPage = () => {
 
   // Define func to dispatch createUserRequest action
   // const searchUser = (searchTerm) => dispatch(searchUserStart(searchTerm));
-  const addUser = (user: IUser) => dispatch(createUserRequest(user));
+  const addUser = (user: IUser) => dispatch(postUserRequest(user));
 
   // Component state for handling input from user
   const [input, setInput] = useState({
@@ -45,33 +44,23 @@ export const UsersPage = () => {
     event.preventDefault();
     // If all input fields are filled
     if (
-      input.fname
-      // &&
-      // input.lname &&
-      // input.email &&
-      // input.vzid &&
-      // input.workType &&
-      // input.roleType
+      input.fname &&
+      input.lname &&
+      input.email &&
+      input.vzid &&
+      input.workType &&
+      input.roleType
     ) {
+      
       // Then post input to users array in local json server
-      // const dataToPost: IUser = {
-      //   id: users.length + 1,
-      //   fname: input.fname,
-      //   lname: input.lname,
-      //   email: input.email,
-      //   vzid: input.vzid,
-      //   workType: input.workType,
-      //   roleType: input.roleType,
-      // };
-
       const dataToPost: IUser = {
         id: users.length + 1,
-        fname: "Jane",
-        lname: "Doe",
-        email: "jane.doe@verizon.com",
-        vzid: "doeja",
-        workType: "FiOS",
-        roleType: "Author",
+        fname: input.fname,
+        lname: input.lname,
+        email: input.email,
+        vzid: input.vzid,
+        workType: input.workType,
+        roleType: input.roleType,
       };
 
       addUser(dataToPost);

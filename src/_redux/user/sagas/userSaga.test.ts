@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { createUserSaga, fetchUserSaga, getUser, userSaga } from "./userSaga";
+import { postUserSaga, getUserSaga, getUser, userSaga } from "./userSaga";
 import { UserActionTypes } from "../actions/UserActionTypes.enum";
 import {
-  fetchUserFailure,
-  fetchUserSuccess,
+  getUserFailure,
+  getUserSuccess,
 } from "../actions/UserActionCreators";
 import { IUser } from "../models/IUser.interface";
 
@@ -11,15 +11,15 @@ import { IUser } from "../models/IUser.interface";
 describe("userSaga watches for actions", () => {
   const generator = userSaga();
 
-  it("should wait for every FETCH_USER_REQUEST action and call fetchUsersSaga", () => {
+  it("should wait for every GET_USER_REQUEST action and call getUsersSaga", () => {
     expect(generator.next().value).toEqual(
-      takeEvery(UserActionTypes.FETCH_USER_REQUEST, fetchUserSaga)
+      takeEvery(UserActionTypes.GET_USER_REQUEST, getUserSaga)
     );
   });
 
-  it("should wait for every CREATE_USER_REQUEST action and call createUsersSaga", () => {
+  it("should wait for every POST_USER_REQUEST action and call postUsersSaga", () => {
     expect(generator.next().value).toEqual(
-      takeEvery(UserActionTypes.CREATE_USER_REQUEST, createUserSaga)
+      takeEvery(UserActionTypes.POST_USER_REQUEST, postUserSaga)
     );
   });
 
@@ -28,10 +28,10 @@ describe("userSaga watches for actions", () => {
   });
 });
 
-// Testing fetchUserSaga
-describe("fetchUserSaga", () => {
+// Testing getUserSaga
+describe("getUserSaga", () => {
   it("success triggers success action with users", () => {
-    const generator = fetchUserSaga();
+    const generator = getUserSaga();
     const mockResponse = {
       status: 200,
       data: [
@@ -49,17 +49,17 @@ describe("fetchUserSaga", () => {
 
     expect(generator.next().value).toEqual(call(getUser));
     expect(generator.next(mockResponse).value).toEqual(
-      put(fetchUserSuccess(mockResponse.data))
+      put(getUserSuccess(mockResponse.data))
     );
 
     expect(generator.next()).toEqual({ done: true, value: undefined });
   });
 
   it("failure triggers failure action", async () => {
-    const generator = fetchUserSaga();
+    const generator = getUserSaga();
     expect(generator.next().value).toEqual(call(getUser));
     expect(generator.throw("error").value).toEqual(
-      put(fetchUserFailure("error"))
+      put(getUserFailure("error"))
     );
 
     expect(generator.next()).toEqual({ done: true, value: undefined });

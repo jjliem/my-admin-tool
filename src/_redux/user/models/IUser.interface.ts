@@ -16,35 +16,35 @@ export interface IUserState {
   error: string | null;
 }
 
-// FETCH USER INTERFACES -----------------------------------------------------------
+// GET USER INTERFACES -----------------------------------------------------------
 
-export type IFetchUserRequest = {
-  type: typeof UserActionTypes.FETCH_USER_REQUEST;
+export type IGetUserRequest = {
+  type: typeof UserActionTypes.GET_USER_REQUEST;
 };
 
-export type IFetchUserSuccess = {
-  type: typeof UserActionTypes.FETCH_USER_SUCCESS;
+export type IGetUserSuccess = {
+  type: typeof UserActionTypes.GET_USER_SUCCESS;
   users: IUser[];
 };
 
-export type IFetchUserFailure = {
-  type: typeof UserActionTypes.FETCH_USER_FAILURE;
+export type IGetUserFailure = {
+  type: typeof UserActionTypes.GET_USER_FAILURE;
   error: string;
 };
 
-// CREATE USER INTERFACES -----------------------------------------------------------
+// POST USER INTERFACES -----------------------------------------------------------
 
-export type ICreateUserRequest = {
-  type: typeof UserActionTypes.CREATE_USER_REQUEST;
+export type IPostUserRequest = {
+  type: typeof UserActionTypes.POST_USER_REQUEST;
   user: IUser;
 };
 
-export type ICreateUserSuccess = {
-  type: typeof UserActionTypes.CREATE_USER_SUCCESS;
+export type IPostUserSuccess = {
+  type: typeof UserActionTypes.POST_USER_SUCCESS;
   user: IUser;
 };
 
-export type ICreateUserFailure = {
-  type: typeof UserActionTypes.CREATE_USER_FAILURE;
+export type IPostUserFailure = {
+  type: typeof UserActionTypes.POST_USER_FAILURE;
   error: string;
 };
