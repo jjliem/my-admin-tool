@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UsersList } from "./components/UsersList";
 import { UsersPage } from "./components/UsersPage";
-import { fetchUsersRequest } from "./_redux/actions/usersActions";
+import { fetchUserRequest } from "./_redux/user/actions/UserActionCreators";
 
-import { RootState } from "./_redux/reducers/rootReducer";
+import { RootState } from "./_redux/rootReducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchUsersRequest());
+    dispatch(fetchUserRequest());
   }, []);
 
   return (
