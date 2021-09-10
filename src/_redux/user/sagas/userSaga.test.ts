@@ -5,6 +5,7 @@ import {
   fetchUserFailure,
   fetchUserSuccess,
 } from "../actions/UserActionCreators";
+import { IUser } from "../models/IUser.interface";
 
 // Testing Watcher Saga
 describe("userSaga watches for actions", () => {
@@ -31,22 +32,24 @@ describe("userSaga watches for actions", () => {
 describe("fetchUserSaga", () => {
   it("success triggers success action with users", () => {
     const generator = fetchUserSaga();
-    const response = [
-      {
-        id: 1,
-        fname: "Jane",
-        lname: "Doe",
-        email: "jane.doe@verizon.com",
-        vzid: "doeja",
-        workType: "FiOS",
-        roleType: "Author",
-      },
-    ];
+    const mockResponse = {
+      status: 200,
+      data: [
+        {
+          id: 1,
+          fname: "Jane",
+          lname: "Doe",
+          email: "jane.doe@verizon.com",
+          vzid: "doeja",
+          workType: "FiOS",
+          roleType: "Author",
+        },
+      ],
+    };
 
     expect(generator.next().value).toEqual(call(getUser));
-
-    expect(generator.next(response).value).toEqual(
-      put(fetchUserSuccess(response))
+    expect(generator.next(mockResponse).value).toEqual(
+      put(fetchUserSuccess(mockResponse.data))
     );
 
     expect(generator.next()).toEqual({ done: true, value: undefined });
