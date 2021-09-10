@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IUser } from "../_redux/user/interface/IUser.interface";
+import { IUser } from "../_redux/user/models/IUser.interface";
 import {
-  fetchUsersRequest,
-  createUsersRequest,
+  fetchUserRequest,
+  createUserRequest,
 } from "../_redux/user/actions/UserActionCreators";
 import { RootState } from "../_redux/rootReducer";
 
@@ -11,19 +11,14 @@ export const UsersPage = () => {
   // State from store
   const dispatch = useDispatch();
 
-  // useSelector = mapStateToProps
+  // get users from store
   const { pending, users, error } = useSelector(
     (state: RootState) => state.users
   );
 
-  // Dispatch sends an action to be stopped later by saga middleware
-  // useEffect runs once after component did mount
-  useEffect(() => {
-    dispatch(fetchUsersRequest());
-  }, []);
-
   // Define func to dispatch createUserRequest action
-  const addUser = (user: IUser) => dispatch(createUsersRequest(user));
+  // const searchUser = (searchTerm) => dispatch(searchUserStart(searchTerm));
+  const addUser = (user: IUser) => dispatch(createUserRequest(user));
 
   // Component state for handling input from user
   const [input, setInput] = useState({
@@ -79,14 +74,7 @@ export const UsersPage = () => {
         roleType: "Author",
       };
 
-      // POST WITH SAGA
-
       addUser(dataToPost);
-
-      // POST WITH AXIOS
-      // axios
-      //   .post("http://localhost:5000/users", dataToPost)
-      //   .then((response) => console.log(response.data));
 
       // And reset the input fields to empty
       setInput({

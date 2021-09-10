@@ -124,6 +124,15 @@
       "vzid": "doeja",
       "workType": "FiOS",
       "roleType": "Author"
+    },
+    {
+      "id": 4,
+      "fname": "Jane",
+      "lname": "Doe",
+      "email": "jane.doe@verizon.com",
+      "vzid": "doeja",
+      "workType": "FiOS",
+      "roleType": "Author"
     }
   ]
 }

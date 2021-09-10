@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 import { UserActions } from "../actions/UserActionCreators";
 import { UserActionTypes } from "../actions/UserActionTypes.enum";
-import { IUser, IUserState } from "../interface/IUser.interface";
+import { IUser, IUserState } from "../models/IUser.interface";
 
 const initialState: IUserState = {
   pending: false,
@@ -21,18 +21,17 @@ export const userReducer: Reducer<IUserState, UserActions> = (
         pending: true,
       };
     case UserActionTypes.FETCH_USER_SUCCESS:
-      console.log("fetch user success action.users: " + action.payload.users);
       return {
         ...state,
         pending: false,
-        users: action.payload.users,
+        users: action.users,
         error: null,
       };
     case UserActionTypes.FETCH_USER_FAILURE:
       return {
         ...state,
         pending: false,
-        error: action.payload.error,
+        error: action.error,
       };
     case UserActionTypes.CREATE_USER_REQUEST:
       console.log(action.user);

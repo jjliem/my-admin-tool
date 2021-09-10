@@ -1,4 +1,4 @@
-import {IUserState} from "./user/interface/IUserState.interface";
+import { IUserState } from "./user/models/IUser.interface";
 
 export default interface IAppState {
   users: IUserState;

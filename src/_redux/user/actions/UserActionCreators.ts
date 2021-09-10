@@ -1,58 +1,53 @@
 import { UserActionTypes } from "./UserActionTypes.enum";
-import {IUser,
-  IFetchUsersFailure,
-  IFetchUsersRequest,
-  IFetchUsersSuccess,
-  ICreateUsersFailure,
-  ICreateUsersRequest,
-  ICreateUsersSuccess,
-  IFetchUsersSuccessPayload,
-  IFetchUsersFailurePayload,
-} from "../interface/IUser.interface";
+import {
+  IUser,
+  IFetchUserFailure,
+  IFetchUserRequest,
+  IFetchUserSuccess,
+  ICreateUserFailure,
+  ICreateUserRequest,
+  ICreateUserSuccess,
+} from "../models/IUser.interface";
 
 // Actions are plain objects that represent intention to change the state
 
+// FETCH USER ACTIONS --------------------------------------------------------
+
+export const fetchUserRequest = (): IFetchUserRequest => ({
+  type: UserActionTypes.FETCH_USER_REQUEST,
+});
+
+export const fetchUserSuccess = (users: IUser[]): IFetchUserSuccess => ({
+  type: UserActionTypes.FETCH_USER_SUCCESS,
+  users,
+});
+
+export const fetchUserFailure = (error: string): IFetchUserFailure => ({
+  type: UserActionTypes.FETCH_USER_FAILURE,
+  error,
+});
+
 // CREATE USER ACTIONS --------------------------------------------------------
 
-export const createUsersRequest = (user: IUser): ICreateUsersRequest => ({
+export const createUserRequest = (user: IUser): ICreateUserRequest => ({
   type: UserActionTypes.CREATE_USER_REQUEST,
   user,
 });
 
-export const createUsersSuccess = (user: IUser): ICreateUsersSuccess => ({
+export const createUserSuccess = (user: IUser): ICreateUserSuccess => ({
   type: UserActionTypes.CREATE_USER_SUCCESS,
   user,
 });
 
-export const createUsersFailure = (error: string): ICreateUsersFailure => ({
+export const createUserFailure = (error: string): ICreateUserFailure => ({
   type: UserActionTypes.CREATE_USER_FAILURE,
   error,
 });
 
-// FETCH ACTIONS --------------------------------------------------------
-
-export const fetchUsersRequest = (): IFetchUsersRequest => ({
-  type: UserActionTypes.FETCH_USER_REQUEST,
-});
-
-export const fetchUsersSuccess = (
-  payload: IFetchUsersSuccessPayload
-): IFetchUsersSuccess => ({
-  type: UserActionTypes.FETCH_USER_SUCCESS,
-  payload,
-});
-
-export const fetchUsersFailure = (
-  payload: IFetchUsersFailurePayload
-): IFetchUsersFailure => ({
-  type: UserActionTypes.FETCH_USER_FAILURE,
-  payload,
-});
-
 export type UserActions =
-  | IFetchUsersRequest
-  | IFetchUsersSuccess
-  | IFetchUsersFailure
-  | ICreateUsersRequest
-  | ICreateUsersSuccess
-  | ICreateUsersFailure;
+  | IFetchUserRequest
+  | IFetchUserSuccess
+  | IFetchUserFailure
+  | ICreateUserRequest
+  | ICreateUserSuccess
+  | ICreateUserFailure;
