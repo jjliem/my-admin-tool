@@ -1,5 +1,5 @@
-import axios from "axios";
-import { call, put, takeEvery } from "redux-saga/effects";
+import axios, { AxiosResponse } from "axios";
+import { call, put, StrictEffect, takeEvery } from "redux-saga/effects";
 import { IPostUserRequest, IUser } from "../models/IUser.interface";
 import {
   getUserSuccess,
@@ -26,7 +26,7 @@ export const postUser = (dataToPost: IUser) => {
 // Worker function that performs the task
 export function* getUserSaga() {
   try {
-    const response = yield call(getUser);
+    const response: AxiosResponse = yield call(getUser);
     console.log("getUsers response: " + response.data);
     yield put(getUserSuccess(response.data));
   } catch (e) {
@@ -53,7 +53,7 @@ export function* postUserSaga(action: IPostUserRequest) {
 }
 
 // Watcher function that listens for post user actions
-export function* userSaga(): Generator<any> {
+export function* userSaga(): Generator<StrictEffect> {
   yield takeEvery(UserActionTypes.GET_USER_REQUEST, getUserSaga);
   yield takeEvery(UserActionTypes.POST_USER_REQUEST, postUserSaga);
 }

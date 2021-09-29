@@ -4,10 +4,9 @@ import { getUserRequest } from "../_redux/user/actions/UserActionCreators";
 import { RootState } from "../_redux/rootReducer";
 
 export const UsersList = () => {
-  // State from store
   const dispatch = useDispatch();
 
-  // useSelector = mapStateToProps
+  // get user state from store
   const { pending, users, error } = useSelector(
     (state: RootState) => state.users
   );

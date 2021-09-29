@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IUser } from "../_redux/user/models/IUser.interface";
-import {
-  postUserRequest,
-} from "../_redux/user/actions/UserActionCreators";
-import { RootState } from "../_redux/rootReducer";
+import { IUser } from "../../_redux/user/models/IUser.interface";
+import { postUserRequest } from "../../_redux/user/actions/UserActionCreators";
+import { RootState } from "../../_redux/rootReducer";
 
-export const UsersPage = () => {
-  // State from store
+export const NewUserForm = () => {
   const dispatch = useDispatch();
 
-  // get users from store
+  // Get user state from store
   const { pending, users, error } = useSelector(
     (state: RootState) => state.users
   );
 
-  // Define func to dispatch createUserRequest action
-  // const searchUser = (searchTerm) => dispatch(searchUserStart(searchTerm));
+  // Define func to dispatch postUserRequest action
   const addUser = (user: IUser) => dispatch(postUserRequest(user));
 
-  // Component state for handling input from user
+  // Component state for handling input from form
   const [input, setInput] = useState({
     id: "",
     fname: "",
@@ -51,7 +47,6 @@ export const UsersPage = () => {
       input.workType &&
       input.roleType
     ) {
-      
       // Then post input to users array in local json server
       const dataToPost: IUser = {
         id: users.length + 1,
@@ -119,16 +114,6 @@ export const UsersPage = () => {
         value={input.vzid}
         onChange={handleChange}
         name="vzid" //binds to keys in state
-      ></input>
-      <br></br>
-      <br></br>
-      <input
-        type="text"
-        placeholder="Work Type"
-        className="AddToList-input"
-        value={input.workType}
-        onChange={handleChange}
-        name="workType" //binds to keys in state
       ></input>
       <br></br>
       <br></br>
